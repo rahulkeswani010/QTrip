@@ -10,6 +10,7 @@ async function init() {
   cities.forEach((key) => {
     addCityToDOM(key.id, key.city, key.description, key.image);
   });
+ 
 }
 
 //Implementation of fetch call
@@ -35,7 +36,7 @@ function addCityToDOM(id, city, description, image) {
   let childDiv=document.createElement('div');
   childDiv.classList='col-sm-6 col-lg-3 mb-4'
   childDiv.innerHTML=`
-  <a href="pages/adventures/?city=${id}">
+  <a href="pages/adventures/?city=${id}" id="${id}">
   <div class="tile">
   <img src="${image}" />
   <div class="tile-text text-center">
@@ -46,7 +47,7 @@ function addCityToDOM(id, city, description, image) {
 </a>
 `;
  dataDiv.append(childDiv);
- 
+
 //  console.log(childDiv)
 }
 

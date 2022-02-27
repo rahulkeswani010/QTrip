@@ -38,10 +38,21 @@ function addAdventureToDOM(adventures) {
   childDiv.innerHTML=`
   <a href="detail/?adventure=${id}" id="${id}">
   <div class="activity-card">
+  <div class="category-banner">${category}</div>
   <img src="${image}" />
- detail/?adventure=<adventure_id>
+</div>
+<div class="card-body">
+<div class="text-center d-flex justify-content-between flex-wrap">
+  <h5 class="card-title">${name}</h5>
+  <p class="card-text">₹${costPerHead}</p>
+</div>
+<div class="text-center d-flex justify-content-between flex-wrap">
+<h5 class="card-title">Duration</h5>
+<p class="card-text">${duration}hours</p>
+</div>
 </div>
 </a>
+
 `;
 dataDiv.append(childDiv);
   })

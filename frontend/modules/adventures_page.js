@@ -29,7 +29,7 @@ async function fetchAdventures(city) {
 function addAdventureToDOM(adventures) {
   // TODO: MODULE_ADVENTURES
   // 1. Populate the Adventure Cards and insert those details into the DOM
-  console.log(adventures);
+  // console.log(adventures);
   let dataDiv=document.getElementById('data');
   adventures.forEach(item =>{
   const{id, category, image,name,costPerHead,duration}=item;
@@ -64,16 +64,34 @@ dataDiv.append(childDiv);
 function filterByDuration(list, low, high) {
   // TODO: MODULE_FILTERS
   // 1. Filter adventures based on Duration and return filtered list
-
+ 
+  // console.log(low,high);
+  return list.filter(item =>{
+    if(item.duration>=low&&item.duration<=high){
+      return item;
+    }
+  })
 }
 
 //Implementation of filtering by category which takes in a list of adventures, list of categories to be filtered upon and returns a filtered list of adventures.
 function filterByCategory(list, categoryList) {
   // TODO: MODULE_FILTERS
   // 1. Filter adventures based on their Category and return filtered list
-
-}
-
+  // let results=[];
+  // console.log(categoryList);
+  // categoryList.forEach(category =>{
+  //   list.forEach(item =>{
+  //     if(item.category==category)
+  //     results.push(item);
+      
+  //     })
+  // })
+  return list.filter(item =>{
+    if(categoryList.includes(item.category))
+      return item;
+  })
+  // return results;
+  }
 // filters object looks like this filters = { duration: "", category: [] };
 
 //Implementation of combined filter function that covers the following cases :
@@ -85,9 +103,23 @@ function filterFunction(list, filters) {
   // TODO: MODULE_FILTERS
   // 1. Handle the 3 cases detailed in the comments above and return the filtered list of adventures
   // 2. Depending on which filters are needed, invoke the filterByDuration() and/or filterByCategory() methods
-
-
+  // console.log(filters.duration);
+  
+  if(filters.duration.length>0){
+    let low=filters.duration.split('-')[0];
+    let high=filters.duration.split('-')[1];
+    
+    list=filterByDuration(list,low,high);
+  } 
+  if(filters.category.length>0)
+   {
+    list=filterByCategory(list,filters.category);
+   }
+   //list=
+  //  console.log(list);
+  // console.log(filters.category);
   // Place holder for functionality to work in the Stubs
+ 
   return list;
 }
 
@@ -95,7 +127,8 @@ function filterFunction(list, filters) {
 function saveFiltersToLocalStorage(filters) {
   // TODO: MODULE_FILTERS
   // 1. Store the filters as a String to localStorage
-
+  // console.log(filters);
+  localStorage.setItem('filters',JSON.stringify(filters));
   return true;
 }
 
@@ -104,9 +137,9 @@ function getFiltersFromLocalStorage() {
   // TODO: MODULE_FILTERS
   // 1. Get the filters from localStorage and return String read as an object
 
-
+  let res=JSON.parse(localStorage.getItem('filters'));
   // Place holder for functionality to work in the Stubs
-  return null;
+  return res;
 }
 
 //Implementation of DOM manipulation to add the following filters to DOM :
@@ -116,7 +149,16 @@ function getFiltersFromLocalStorage() {
 function generateFilterPillsAndUpdateDOM(filters) {
   // TODO: MODULE_FILTERS
   // 1. Use the filters given as input, update the Duration Filter value and Generate Category Pills
-
+  // console.log(filters);
+  
+  const categoryArray = filters.category;
+  const parent = document.getElementById('category-list');
+  categoryArray.forEach(element => {
+    const categoryElement = document.createElement('p');
+    categoryElement.className = "category-filter"
+    categoryElement.textContent = element;
+    parent.append(categoryElement);
+})
 }
 export {
   getCityFromURL,

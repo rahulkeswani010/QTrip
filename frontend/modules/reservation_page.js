@@ -30,16 +30,15 @@ function addReservationToTable(reservations) {
   }
   let reservationtable=document.getElementById('reservation-table');
   reservations.forEach(reservation =>{
-    let d=new Date(reservation.date).toLocaleString("en-IN");
-    let date=d.split(',')[0];
-    const newTime = new Date(reservation.time).toLocaleString("en-In",{
-      year: "numeric",
-      day: "numeric",
-      month: "long",
-      hour: "numeric",
-      minute: "numeric",
-      second: "numeric",
-      hour12: true,
+    let date=new Date(reservation.date).toLocaleDateString('en-IN');
+    let newTime= new Date(reservation.time).toLocaleString('en-In',{
+      day:"numeric",
+      year:"numeric",
+      month:"long",
+      hour:"numeric",
+      minute:"numeric",
+      second:"numeric",
+      hour12:true
     })
     let row=document.createElement('tr');
     row.innerHTML=` 
